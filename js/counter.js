@@ -6,6 +6,7 @@ window.addEventListener("click", function (event) {
     event.target.dataset.action === "minus"
   ) {
     const counterWrapper = event.target.closest(".counter-wrapper");
+
     counter = counterWrapper.querySelector("[data-counter]");
   }
 
@@ -20,9 +21,18 @@ window.addEventListener("click", function (event) {
       event.target.closest(".cart-wrapper") &&
       parseInt(counter.innerText) === 1
     ) {
-      {
-        event.target.closest(".cart-item").remove();
-      }
+      event.target.closest(".cart-item").remove();
+
+      toggleCartStatus();
+
+      calcCartPriceAndDelivery();
     }
+  }
+
+  if (
+    event.target.hasAttribute("data-action") &&
+    event.target.closest(".cart-wrapper")
+  ) {
+    calcCartPriceAndDelivery();
   }
 });
